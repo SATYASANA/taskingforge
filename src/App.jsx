@@ -18,8 +18,8 @@ const {isLoggedIn}  = useSelector(state=>state.auth)
     <>
     {isLoggedIn&&<NavBar/>}
    <Routes>
-    <Route path='/' element={<Home/>}></Route>
-    <Route path="/signup" element={<Signup/>}></Route>
+    {/* <Route path='/' element={<Home/>}></Route> */}
+    <Route path="/" element={<Signup/>}></Route>
     <Route path="/signin" element={<Signin/>}></Route>
     <Route path="/create-task" element={<PrivateRoute><CreateTask/></PrivateRoute>}/>
     <Route path="/get-profile" element={<Profile/>}/>
