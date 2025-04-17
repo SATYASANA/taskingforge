@@ -26,9 +26,9 @@ export default function Signin() {
     formData.append("email",userInfo.email);
     formData.append("password",userInfo.password)  
     const response = await dispatch(login(userInfo))  
-    console.log("respons is fdfghfhhdf",response)
+    console.log("respons is fdfghfhhdf",response?.payload?.success)
     if(response?.payload?.success){
-        navigate("/home")
+        navigate("/")
     }
   }
   console.log(userInfo)

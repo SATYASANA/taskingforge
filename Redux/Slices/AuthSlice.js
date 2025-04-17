@@ -2,7 +2,7 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../helpers/axiosInstance";
 import toast from "react-hot-toast";
 const initialState = {
-    isLoggedIn: JSON.parse(localStorage.getItem('isLoggedIn')) || false,
+    isLoggedIn: localStorage.getItem('isLoggedIn') || false,
     role:localStorage.getItem('role') || "",
     data: localStorage.getItem('data') !=='undefined'? JSON.parse(localStorage.getItem('data')) : {}
 }
