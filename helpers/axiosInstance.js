@@ -5,7 +5,7 @@ const BASE_URL = 'https://taskforge-production-2ddb.up.railway.app/api/v1';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, // 👈 this ensures cookies are sent in cross-origin requests
+  credentials: true // 👈 this ensures cookies are sent in cross-origin requests
 });
 
 export default axiosInstance;
