@@ -9,7 +9,7 @@ const initialState = {
 export const createAccount=createAsyncThunk("/auth/signup",async (data)=>{
     try {
         console.log("data is " ,data)
-        const res = axiosInstance.post('/register',data)
+        const res = await axiosInstance.post('/register',data)
         console.log("respoinse is ",res)
         toast.promise(res,{
             loading:'Wait! creating your account',
@@ -26,7 +26,7 @@ export const createAccount=createAsyncThunk("/auth/signup",async (data)=>{
 export const login = createAsyncThunk("/auth/login", async (data)=>{
     try {
        
-        const res = axiosInstance.post('/login',data)
+        const res = await axiosInstance.post('/login',data)
         console.log("response is",res)
         
         toast.promise(res,{
@@ -46,7 +46,7 @@ export const login = createAsyncThunk("/auth/login", async (data)=>{
 
 export const logout = createAsyncThunk('/auth/logout',async ()=>{
     try {
-        const res = axiosInstance.post('/logout');
+        const res = await axiosInstance.post('/logout');
         toast.promise(res,{
             loading:"Logging you out...",
             success:(data)=>{
@@ -82,13 +82,20 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers:(builder)=>{
-        builder.addCase(login.fulfilled,(state,action)=>{
-            localStorage.setItem("data",JSON.stringify(action?.payload?.user))
-            localStorage.setItem("isLoggedIn",true)
-            localStorage.setItem("role",action?.payload?.user?.role)
-            state.isLoggedIn = true
-            state.data = action?.payload?.user
-            state.role = action?.payload?.user?.role
+        builder.addCase(login.fulfilled, (state, action) => {
+            const user = action?.payload?.user;
+            
+            if (user) {
+                // Save the user data to localStorage
+                localStorage.setItem("data", JSON.stringify(user)); // Store user object as JSON string
+                localStorage.setItem("isLoggedIn", "true"); // Store 'true' as a string
+                localStorage.setItem("role", user.role); // Store role in localStorage as a string
+        
+                // Update Redux state
+                state.isLoggedIn = true; // Set isLoggedIn to true in the state
+                state.data = user; // Store user details in state
+                state.role = user.role; // Store user role in state
+            }
         }).addCase(logout.fulfilled,(state,action)=>{
             localStorage.setItem("isLoggedIn", JSON.stringify(false));
             localStorage.removeItem("data");
