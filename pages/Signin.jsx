@@ -28,7 +28,7 @@ export default function Signin() {
     const response = await dispatch(login(userInfo))  
     console.log("respons is fdfghfhhdf",response)
     if(response?.payload?.success){
-        navigate("/")
+        navigate("/home")
     }
   }
   console.log(userInfo)
