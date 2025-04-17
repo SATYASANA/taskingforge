@@ -83,12 +83,19 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers:(builder)=>{
         builder.addCase(login.fulfilled,(state,action)=>{
-            localStorage.setItem("data",JSON.stringify(action?.payload?.user))
-            localStorage.setItem("isLoggedIn",true)
-            localStorage.setItem("role",action?.payload?.user?.role)
-            state.isLoggedIn = true
-            state.data = action?.payload?.user
-            state.role = action?.payload?.user?.role
+            const user = action?.payload?.user;
+
+      if (user) {
+        // Store details in localStorage
+        localStorage.setItem("data", JSON.stringify(user));
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("role", user.role);
+
+        // Update Redux state
+        state.isLoggedIn = true;
+        state.data = user;
+        state.role = user.role;
+      }
         }).addCase(logout.fulfilled,(state,action)=>{
             localStorage.setItem("isLoggedIn", JSON.stringify(false));
             localStorage.removeItem("data");
