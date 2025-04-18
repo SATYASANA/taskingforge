@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../Redux/Slices/AuthSlice';
-
+import { getProfile, logout } from '../Redux/Slices/AuthSlice';
+import  logo from "../assets/image/blackLogo.png"
 export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +14,12 @@ export default function NavBar() {
       navigate("/signin");
     }
   }
+const { profile, error, data, role } = useSelector(state => state.auth);
+  console.log("profile data is",profile?.userInfo)
 
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
   const navLinks = (
     <>
       <li><Link to="/">Home</Link></li>
@@ -22,9 +27,11 @@ export default function NavBar() {
       <li><Link to="/about">About</Link></li>
       {isLoggedIn && (
         <>
-          <li><Link to="/get-profile">Profile</Link></li>
+         
           <li><Link to="/create-task">Create Task</Link></li>
-          <li><button onClick={handleLogout}>Logout</button></li>
+         
+          {isLoggedIn && <li><button onClick={handleLogout}>Logout</button></li>}
+          <li><Link to="/get-profile"><img className='w-[30px] object-cover rounded-full' src={profile?.userInfo?.profilePic?.secure_url} alt="" /></Link></li>
         </>
       )}
       {!isLoggedIn && (
@@ -37,7 +44,7 @@ export default function NavBar() {
     <div className="navbar bg-base-100 shadow-sm px-4">
       {/* Logo */}
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">TaskForge</Link>
+        <Link to="/" className=""><img className='w-[150px]' src={logo} alt="" /></Link>
       </div>
 
       {/* Desktop Nav */}

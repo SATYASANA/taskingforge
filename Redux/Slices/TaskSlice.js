@@ -3,7 +3,7 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../helpers/axiosInstance";
 import toast from "react-hot-toast";
 const initialState = {
-    tasks: [],
+    tasks:[],
     loading: false,
     error: null,
   };

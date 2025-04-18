@@ -2,6 +2,7 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../helpers/axiosInstance";
 import toast from "react-hot-toast";
 const initialState = {
+    profile:{},
     isLoggedIn: localStorage.getItem('isLoggedIn') || false,
     role:localStorage.getItem('role') || "",
     data: localStorage.getItem('data') !=='undefined'? JSON.parse(localStorage.getItem('data')) : {}
@@ -62,11 +63,11 @@ export const logout = createAsyncThunk('/auth/logout',async ()=>{
 
 export const getProfile = createAsyncThunk('/auth/profile',async ()=>{
     try {
-        const res = await axiosInstance.get("/me")
+        const res =  axiosInstance.get("/me")
         toast.promise(res,{
             loading:"Getting Profile",
             success:(data)=>{
-                return data?.data?.message
+                return data?.data?.message ||"Profile fetched successfully"
             },
             error:"failed to get profile"
         })
@@ -91,7 +92,12 @@ const authSlice = createSlice({
             state.isLoggedIn = true
             state.data = action?.payload
             state.role = action?.payload?.role
-        }).addCase(logout.fulfilled,(state,action)=>{
+        }).addCase(getProfile.fulfilled,(state,action)=>{
+            console.log("action is",action)
+            state.profile = action?.payload
+        })
+        
+        .addCase(logout.fulfilled,(state,action)=>{
             localStorage.setItem("isLoggedIn", JSON.stringify(false));
             localStorage.removeItem("data");
             localStorage.removeItem("role");

@@ -19,9 +19,20 @@ body{
     background-position:top;
 
 }
-.table-task-bg{
+/* .table-task-bg{
     background-image: url(../assets/image/tableBg.jpg);
     background-size: cover; 
     background-position: center;
-    /* background: yellow; */
+
+} */
+
+.table-zebra {
+    & tbody {
+        & tr {
+            &:nth-child(even) {
+                background-color: #ffe64eab;
+                color: #000;
+            }
+        }
+    }
 }

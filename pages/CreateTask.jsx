@@ -123,7 +123,7 @@ const addSubtask = (e) => {
               <label htmlFor='taskStatus'  className="block text-gray-600 mb-1">Task Status</label>
               <select value={allData.taskStatus} onChange={handleInput} name='taskStatus' id="taskStatus"  className="select border-gray-300 w-full">
                <option value="" disabled={true}>Select Status</option>
-              <option value="Back Log">Back Log</option>
+              <option value="Backlog">Back Log</option>
              <option value="In Progress">In Progress</option>
               <option value="Done">Done</option>
               </select>
