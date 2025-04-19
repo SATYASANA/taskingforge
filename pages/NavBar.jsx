@@ -17,9 +17,9 @@ export default function NavBar() {
 const { profile, error, data, role } = useSelector(state => state.auth);
   console.log("profile data is",profile?.userInfo)
 
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getProfile());
+  // }, [dispatch]);
   const navLinks = (
     <>
       <li><Link to="/">Home</Link></li>
