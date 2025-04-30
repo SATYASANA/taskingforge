@@ -17,6 +17,7 @@ body{
     background-image: url(../assets/image/office-desk-workspace-bright-color-yellow-background.jpg);
     background-size: cover;
     background-position:top;
+    height:70vh;
 
 }
 /* .table-task-bg{
