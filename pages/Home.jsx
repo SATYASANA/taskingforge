@@ -1,8 +1,10 @@
 import React from 'react'
 import taskImage from "../assets/image/taskImage.jpg"
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
+  const {isLoggedIn}  = useSelector(state=>state.auth)
   return (
     
 
@@ -16,8 +18,8 @@ export default function Home() {
   <p className='mt-5 text-xl text-gray-700'>
 No more juggling tasks or forgetting deadlines — we’ve got one system to rule them all. Stay sharp, stay synced, and smash your goals. Your day, your way — just more organized. Let’s keep it tight, get it done, and make every task a win. Let’s run this like pros.
 </p>
-<Link className='w-30 py-5 btn mt-4 bg-white text-blue-800 p-4 transition transform duration-300 ease-in-out hover:scale-105
- hover:bg-blue-600 hover:text-white'  to="/signup">Signup</Link>
+{isLoggedIn && <Link className='w-30 py-5 btn mt-4 bg-white text-blue-800 p-4 transition transform duration-300 ease-in-out hover:scale-105
+ hover:bg-blue-600 hover:text-white'  to="/signup">Signup</Link>}
   </div>
   
 </div>
